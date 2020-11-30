@@ -540,7 +540,7 @@ module.exports = msgHandler = async (CR4R, message) => {
             break
         case 'yt':
             if(kotor(body.toLowerCase()) === 'ok') return CR4R.reply(from,jagaOmongan,id); if(cek()==='ok') return CR4R.reply(from,maintan,id); if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
-            if (args.length <= 2) return client(from,`Contoh Penggunaan:\nyt mp3 https://linkyoutube\nyt mp4 https://linkyoutube`)
+            if (args.length <= 2) return CR4R.reply(from,`Contoh Penggunaan:\nyt mp3 https://linkyoutube\nyt mp4 https://linkyoutube`)
             var piliha = body.split(' ')[1]; var linkk = body.split(' ')[2]
             console.log(linkk)
             var headers = { 'User-Agent':       'Super Agent/0.0.1', 'Content-Type':     'application/x-www-form-urlencoded' }

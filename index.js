@@ -17,12 +17,12 @@ const start = async (CR4R = new Client()) => {
                     CR4R.cutMsgCache()
                 }
             })
-            msgHandler(client, message)
+            msgHandler(CR4R, message)
         }))
 
         // ketika seseorang masuk/keluar dari group
         CR4R.onGlobalParicipantsChanged((async (heuh) => {
-            await welcome(client, heuh)
+            await welcome(CR4R, heuh)
             //left(client, heuh)
         }))
 
