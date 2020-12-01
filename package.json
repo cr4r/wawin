@@ -19,6 +19,7 @@
     "moment-timezone": "^0.5.32",
     "nhentai-api": "^3.0.2",
     "nhentai-js": "^4.0.0",
+    "request-promise": "^4.2.6",
     "urlencode": "^1.1.0",
     "xml2json": "^0.12.0"
   },
