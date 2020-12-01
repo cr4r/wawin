@@ -687,12 +687,12 @@ module.exports = msgHandler = async (CR4R, message) => {
             inst(body.split(' ')[1]).then((hsl)=> {
                 if(hsl.status === 'ok'){
                     if(hsl.result.type === 'video'){
-                        client.sendFileFromUrl(from, hsl.result.url, 'Hasil.mp4',hsl.result.judul,id);
+                        CR4R.sendFileFromUrl(from, hsl.result.url, 'Hasil.mp4',hsl.result.judul,id);
                     }else{
-                        client.sendFileFromUrl(from, hsl.result.url, 'Hasil.jpg',hsl.result.judul,id);
+                        CR4R.sendFileFromUrl(from, hsl.result.url, 'Hasil.jpg',hsl.result.judul,id);
                     }
                 }else{
-                    client.reply(from,hsl.result.pesan, id);
+                    CR4R.reply(from,hsl.result.pesan, id);
                 }
             });
             break
