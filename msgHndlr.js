@@ -1,6 +1,6 @@
 var deepai = require('deepai');
 const inst = require('./lib/ig')
-const inst = require('./lib/igstalk')
+const igstalk = require('./lib/igstalk')
 const cuaca = require('./lib/cuaca')
 const gmal = require('./lib/gmailGen.js')
 const xml2js = require('xml2json');
