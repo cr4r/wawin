@@ -1077,15 +1077,17 @@ module.exports = msgHandler = async (CR4R, message) => {
             if(kotor(body.toLowerCase()) === 'ok') return CR4R.reply(from,jagaOmongan,id)
             if(cek()==='ok') return CR4R.reply(from,maintan,id)
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
-            var _query = body.slice(3)
+            var _query = body.split(' ')[1]
             //#const _query = body.slice(43)
-            if (!_query.match(isUrl)) return CR4R.reply(from, mess.error.Iv, id)
-            if (args.length === 1) return CR4R.reply(from, 'Kirim perintah *!ss [web]*\nContoh *ss https://google.com*', id)
-            await ss(_query).then((result) => {
-                CR4R.sendFile(from, `./log/screenshot.jpeg`, 'ss.jpeg', `${donasi}`, id)
-                exec(`rm ./log/screenshot.jpeg`)
+            if (!_query.match(isUrl)) return CR4R.reply(from, mess.error.Iv+"\n\nContoh *ss https://google.com*\natau\nss https://google.com full", id)
+            if (args.length === 1) return CR4R.reply(from, 'Kirim perintah *ss [web]*\nContoh *ss https://google.com*\natau\nss https://google.com full', id)
+            var _pilihann = false;
+            if(args.length === 3) {pidd = body.split(' ')[2];if(pidd === 'full'){_pilihann = true}}
+            await ss(_query,_pilihann).then((result) => {
+                CR4R.sendFile(from, `./log/ss.png`, 'ss.png', `${donasi}`, id)
+                exec(`rm ./log/ss.png`)
             })
-            .catch(() => CR4R.reply(from, `Error tidak dapat mengambil screenshot website ${_query}`, id))
+            .catch((err) => CR4R.reply(from, `Error tidak dapat mengambil screenshot website ${_query}\n\n${err}`, id))
             break
         case 'quote':
         case 'quotes':
