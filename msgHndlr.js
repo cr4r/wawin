@@ -1,6 +1,6 @@
 var deepai = require('deepai');
 const inst = require('./lib/ig')
-const igstalk = require('./lib/igstalk')
+const igstalkk = require('./lib/igstalk')
 const cuaca = require('./lib/cuaca')
 const gmal = require('./lib/gmailGen.js')
 const xml2js = require('xml2json');
@@ -703,7 +703,7 @@ module.exports = msgHandler = async (CR4R, message) => {
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
             if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah *igstalk username*\nConntoh *igStalk @duar_amjay*', id)
             var usrr = body.split(' ')[1]
-            igstalk(usrr).then((hsl)=> {
+            igstalkk(usrr).then((hsl)=> {
                 followers = hsl.edge_followed_by.count
                 followed = hsl.edge_follow
                 nama = hsl.full_name
@@ -711,7 +711,7 @@ module.exports = msgHandler = async (CR4R, message) => {
                 username = hsl.username
                 banyakVideo = hsl.edge_felix_video_timeline.count
                 banyakFoto = hsl.edge_owner_to_timeline_media.count
-                client.sendFileFromUrl(from,foroProf,username+'.jpg',`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}\n\n${donasi}`,id)
+                CR4R.sendFileFromUrl(from,foroProf,username+'.jpg',`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}\n\n${donasi}`,id)
             })
             break
         case 'infogempa':
