@@ -1,5 +1,6 @@
 var deepai = require('deepai');
 const inst = require('./lib/ig')
+const inst = require('./lib/igstalk')
 const cuaca = require('./lib/cuaca')
 const gmal = require('./lib/gmailGen.js')
 const xml2js = require('xml2json');
@@ -683,7 +684,7 @@ module.exports = msgHandler = async (CR4R, message) => {
             if(cek()==='ok') return CR4R.reply(from,maintan,id)
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
             if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah \nContoh:\n*ig https://www.instagram.com/cr4rrr*', id)
-            imag(body.split(' ')[1]).then((hsl)=> {
+            inst(body.split(' ')[1]).then((hsl)=> {
                 if(hsl.status === 'ok'){
                     if(hsl.result.type === 'video'){
                         client.sendFileFromUrl(from, hsl.result.url, 'Hasil.mp4',hsl.result.judul,id);
@@ -700,22 +701,18 @@ module.exports = msgHandler = async (CR4R, message) => {
             if(cek()==='ok') return CR4R.reply(from,maintan,id)
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
-            if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah *igStalk @username*\nConntoh *igStalk @duar_amjay*', id)
-            var usrr = body.split(' ')
-            // axios.get(`https://arugaz.herokuapp.com/api/stalk?username=${usrr}`).then(resp =>{
-            //     if(resp.data.status === false) return CR4R.reply(from, 'Foto/Video tidak ada',id)
-            //     if(resp.data.status === 200){
-            //         var biodata = resp.data.biodata.replace('ArugaZ','cr4r')
-            //         var follower = resp.data.Jumlah_Followers
-            //         var following = resp.data.Jumlah_Following
-            //         var post = resp.data.Jumlah_Post
-            //         var naman = resp.data.name
-            //         var usrnm = resp.data.username
-            //         var caps = `Nama: ${naman}\nUsername: ${usrnm}\nBio: ${biodata}\nJumlah Post: ${post}\n${follower}\n${following}\n\n${donasi}`
-            //         CR4R.sendFileFromUrl(from, resp.data.Profile_pic, 'Profile.jpg', caps, id)
-            //     }
-            // })
-            CR4R.reply(from, 'Maaf fitur ini sedang perbaikan',id)
+            if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah *igstalk username*\nConntoh *igStalk @duar_amjay*', id)
+            var usrr = body.split(' ')[1]
+            igstalk(usrr).then((hsl)=> {
+                followers = hsl.edge_followed_by.count
+                followed = hsl.edge_follow
+                nama = hsl.full_name
+                fotoProf = hsl.profile_pic_url_hd
+                username = hsl.username
+                banyakVideo = hsl.edge_felix_video_timeline.count
+                banyakFoto = hsl.edge_owner_to_timeline_media.count
+                client.sendFileFromUrl(from,foroProf,username+'.jpg',`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}\n\n${donasi}`,id)
+            })
             break
         case 'infogempa':
             if(kotor(body.toLowerCase()) === 'ok') return CR4R.reply(from,jagaOmongan,id)
