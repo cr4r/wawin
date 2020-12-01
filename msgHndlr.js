@@ -1,5 +1,5 @@
 var deepai = require('deepai');
-const inst = require('./lib/instagram')
+const inst = require('./lib/ig')
 const cuaca = require('./lib/cuaca')
 const gmal = require('./lib/gmailGen.js')
 const xml2js = require('xml2json');
@@ -682,19 +682,18 @@ module.exports = msgHandler = async (CR4R, message) => {
             if(kotor(body.toLowerCase()) === 'ok') return CR4R.reply(from,jagaOmongan,id)
             if(cek()==='ok') return CR4R.reply(from,maintan,id)
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
-            CR4R.reply(from, 'Maaf fitur ini sedang perbaikan',id)
-            // if (args.length === 1) return CR4R.reply(from, 'Kirim perintah *ig [linkIg]* untuk contoh silahkan kirim perintah *readme*')
-            // if (!args[1].match(isUrl) && !args[1].includes('instagram.com')) return CR4R.reply(from, mess.error.Iv, id)
-            // // var splitted_URL=body.split(' ')[1].split("/");    ///returns an array
-            // // var array_length=splitted_URL.length;
-            // // var insta_photo_id=splitted_URL[array_length-2]
-            // console.log(body.split(' ')[1])
-            // inst(body.split(' ')[1]).then((aa)=>{
-            //     console.log(aa.status)
-            //     if(aa.status===404) return CR4R.reply(from, 'Maaf link yang anda kirimkan mungkin bukan type gambar/video, jadi saya tidak mau :)',id)
-            //     if(aa.status===200) return CR4R.sendFile(from,res.file,res.nama,donasi,id)
-            //     exec(`rm ./media/instagram/*`)
-            // })
+            if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah \nContoh:\n*ig https://www.instagram.com/cr4rrr*', id)
+            imag(body.split(' ')[1]).then((hsl)=> {
+                if(hsl.status === 'ok'){
+                    if(hsl.result.type === 'video'){
+                        client.sendFileFromUrl(from, hsl.result.url, 'Hasil.mp4',hsl.result.judul,id);
+                    }else{
+                        client.sendFileFromUrl(from, hsl.result.url, 'Hasil.jpg',hsl.result.judul,id);
+                    }
+                }else{
+                    client.reply(from,hsl.result.pesan, id);
+                }
+            });
             break
         case 'igstalk':
             if(kotor(body.toLowerCase()) === 'ok') return CR4R.reply(from,jagaOmongan,id)
