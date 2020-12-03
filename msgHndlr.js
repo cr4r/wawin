@@ -1,6 +1,5 @@
-var deepai = require('deepai');
-const inst = require('./lib/ig')
-const igstalkk = require('./lib/igstalk')
+const deepai = require('deepai');
+const {ig, igstalk} = require('api')
 const cuaca = require('./lib/cuaca')
 const gmal = require('./lib/gmailGen.js')
 const xml2js = require('xml2json');
@@ -684,15 +683,15 @@ module.exports = msgHandler = async (CR4R, message) => {
             if(cek()==='ok') return CR4R.reply(from,maintan,id)
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
             if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah \nContoh:\n*ig https://www.instagram.com/cr4rrr*', id)
-            inst(body.split(' ')[1]).then((hsl)=> {
+            ig(body.split(' ')[1]).then((hsl)=> {
                 if(hsl.status === 'ok'){
-                    if(hsl.result.type === 'video'){
-                        CR4R.sendFileFromUrl(from, hsl.result.url, 'Hasil.mp4',hsl.result.judul,id);
+                    if(hsl.type === 'video'){
+                        CR4R.sendFileFromUrl(from, hsl.url, 'Hasil.mp4',hsl.judul,id);
                     }else{
-                        CR4R.sendFileFromUrl(from, hsl.result.url, 'Hasil.jpg',hsl.result.judul,id);
+                        CR4R.sendFileFromUrl(from, hsl.url, 'Hasil.jpg',hsl.judul,id);
                     }
                 }else{
-                    CR4R.reply(from,hsl.result.pesan, id);
+                    CR4R.reply(from,hsl.result, id);
                 }
             });
             break
@@ -702,15 +701,14 @@ module.exports = msgHandler = async (CR4R, message) => {
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
             if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah *igstalk username*\nConntoh *igStalk @duar_amjay*', id)
-            var usrr = body.split(' ')[1]
-            igstalkk(usrr).then((hsl)=> {
-                followers = hsl.edge_followed_by.count
-                followed = hsl.edge_follow
-                nama = hsl.full_name
-                fotoProf = hsl.profile_pic_url_hd
-                username = hsl.username
-                banyakVideo = hsl.edge_felix_video_timeline.count
-                banyakFoto = hsl.edge_owner_to_timeline_media.count
+            igstalk(body.split(' ')[1]).then((hsl)=> {
+                followers = hsl.followers
+                followed = hsl.following
+                nama = hsl.fullname
+                fotoProf = hsl.profile_pic
+                username = hsl.user_name
+                banyakVideo = hsl.jumVideo
+                banyakFoto = hsl.jumFoto
                 CR4R.sendFileFromUrl(from,foroProf,username+'.jpg',`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}\n\n${donasi}`,id)
             })
             break
@@ -1019,7 +1017,7 @@ module.exports = msgHandler = async (CR4R, message) => {
                     CR4R.reply(from, `Waifu adalah algoritma yang meningkatkan gambar sekaligus mengurangi noise di dalam gambar. Itu mendapatkan namanya dari seni bergaya anime yang dikenal sebagai \'waifu\' yang sebagian besar dilatihnya. Meskipun waifus merupakan sebagian besar data pelatihan, api waifu2x ini masih berfungsi dengan baik pada foto dan jenis citra lainnya. Anda dapat menggunakan Waifu2x untuk menggandakan ukuran gambar Anda sekaligus mengurangi noise.\n\nCara Penggunaan waifu\nContoh\:\nKirimlah foto beserta pesan berisi waifu\natau\nwaifu https://www.animenewsnetwork.com/images/encyc/A6248-3.jpg\n\n`,id)
                 }
             }
-            deepai.setApiKey('d22373bd-b3d1-41a6-97a0-78450f64915c');
+            deepai.setApiKey('d22373bd-b3d1-41a6-97a0-78 450f64915c');
             try{
                 (async function() {
                     var satu = await deepai.callStandardApi("waifu2x", { image: imag })
