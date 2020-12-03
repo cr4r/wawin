@@ -709,7 +709,7 @@ module.exports = msgHandler = async (CR4R, message) => {
                 username = hsl.user_name
                 banyakVideo = hsl.jumVideo
                 banyakFoto = hsl.jumFoto
-                CR4R.sendFileFromUrl(from,foroProf,username+'.jpg',`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}\n\n${donasi}`,id)
+                CR4R.sendFileFromUrl(from,fotoProf,username+'.jpg',`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}\n\n${donasi}`,id)
             })
             break
         case 'infogempa':
