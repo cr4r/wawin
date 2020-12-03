@@ -700,20 +700,14 @@ module.exports = msgHandler = async (CR4R, message) => {
             if(cek()==='ok') return CR4R.reply(from,maintan,id)
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
             if (!isBlocked) return CR4R.reply(from, 'Hey hey orang yang sudah di blok tidak bisa gunakan bot',id)
-            if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah *igstalk username*\nConntoh *igStalk @duar_amjay*', id)
-            igstalk(body.split(' ')[1]).then((hsl)=> {
+            if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah *igstalk username*\nConntoh *igStalk cr4rrr*', id)
+            usernnya = body.split(' ')[1]
+            igstalk(usernnya).then((hsl)=> {
                 console.log(hsl);
                 if(hsl.status === 'ok'){
-                    followers = hsl.followers
-                    followed = hsl.following;
-                    nama = hsl.fullname;
-                    fotoProf = hsl.fullPic;
-                    username = hsl.user_name;
-                    banyakVideo = hsl.jumVideo;
-                    banyakFoto = hsl.jumFoto;
-                    CR4R.sendFileFromUrl(from,fotoProf,`${username}.jpg'`,`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}\n\n${donasi}`,id)
+                    CR4R.sendFileFromUrl(from,hsl.fullPic,`${hsl.user_name}.jpg'`,`Nama asli: ${hsl.fullname}\nFollowers: ${hsl.followers}\nMengikuti: ${hsl.following}\nUpload Video: ${hsl.jumVideo}\nUpload Foto: ${hsl.jumFoto}\n\n${donasi}`,id)
                 }else{
-                    client.reply(from,'Username tidak ada\n\nerror: '+hsl.error,id)
+                    CR4R.reply(from,'Username tidak ada\n\nerror: '+hsl.error,id)
                 }
             })
             break
