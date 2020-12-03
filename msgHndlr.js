@@ -703,13 +703,14 @@ module.exports = msgHandler = async (CR4R, message) => {
             if (args.length === 1)  return CR4R.reply(from, 'Kirim perintah *igstalk username*\nConntoh *igStalk @duar_amjay*', id)
             igstalk(body.split(' ')[1]).then((hsl)=> {
                 followers = hsl.followers
-                followed = hsl.following
-                nama = hsl.fullname
-                fotoProf = hsl.profile_pic
-                username = hsl.user_name
-                banyakVideo = hsl.jumVideo
-                banyakFoto = hsl.jumFoto
-                CR4R.sendFileFromUrl(from,fotoProf,username+'.jpg',`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}\n\n${donasi}`,id)
+                followed = hsl.following;
+                nama = hsl.fullname;
+                fotoProf = hsl.fullPic;
+                username = hsl.user_name;
+                banyakVideo = hsl.jumVideo;
+                banyakFoto = hsl.jumFoto;
+                console.log(`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}`);
+                CR4R.sendFileFromUrl(from,fotoProf,`${username}.jpg'`,`Nama asli: ${nama}\nFollowers: ${followers}\nMengikuti: ${followed}\nUpload Video: ${banyakVideo}\nUpload Foto: ${banyakFoto}\n\n${donasi}`,id)
             })
             break
         case 'infogempa':
